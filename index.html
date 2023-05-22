@@ -1,0 +1,136 @@
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <title>Document</title>
+      </head>
+      <style> 
+
+      .slider02 {
+        position: relative;
+        width: 100%;
+        height: 600px;
+        overflow: hidden;
+      }
+
+      .slider02-main {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      .slider02-main a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .slider02-main img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .slider02-nav {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+      }
+
+      .slider02-nav-item {
+        margin: 0 10px;
+        width: 100px;
+        height: 60px;
+        overflow: hidden;
+        border-radius: 5px;
+        border: 2px solid #fff;
+        cursor: pointer;
+        transition: border-color 0.5s ease-in-out;
+      }
+
+      .slider02-nav-item.active {
+        border-color: rgb(255, 255, 0);
+      }
+
+      .slider02-nav-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      </style>
+      <body>
+      <div class="slider02">
+          <div class="slider02-main">
+              <a href="img1.jpg"><img src="./img/5.jpg" alt="Image 5"></a>
+              <a href="img2.jpg"><img src="./img/6.jpg" alt="Image 6"></a>
+              <a href="img3.jpg"><img src="./img/7.jpg" alt="Image 7"></a>
+              <a href="img4.jpg"><img src="./img/8.jpg" alt="Image 8"></a>
+          </div>
+          <div class="slider02-nav">
+              <div class="slider02-nav-item active"><img src="./img/5.jpg" alt="Image 5"></div>
+              <div class="slider02-nav-item active"><img src="./img/6.jpg" alt="Image 6"></div>
+              <div class="slider02-nav-item active"><img src="./img/7.jpg" alt="Image 7"></div>
+              <div class="slider02-nav-item active"><img src="./img/8.jpg" alt="Image 8"></div>
+          </div>
+      </div>
+          <script>
+              $(document).ready(function () {
+                      var slideIndex = 0;
+                      var slides = $('.slider02-main a');
+                      var dots = $('.slider02-nav-item');
+                      var intervalId;
+
+                      function showSlide(n) {
+                          slideIndex = n;
+                          slides.hide();
+                          slides.eq(slideIndex).show();
+                          dots.removeClass('active');
+                          dots.eq(slideIndex).addClass('active');
+                      }
+
+                      function nextSlide() {
+                          slideIndex++;
+                          if (slideIndex >= slides.length) {
+                              slideIndex = 0;
+                          }
+                          showSlide(slideIndex);
+                      }
+
+                      function startAutoSlide() {
+                          intervalId = setInterval(function () {
+                              nextSlide();
+                          }, 5000);
+                      }
+
+                      function stopAutoSlide() {
+                          clearInterval(intervalId);
+                      }
+
+                      dots.click(function () {
+                          var index = dots.index(this);
+                          showSlide(index);
+                      });
+
+                      $('.slider02').hover(function () {
+                          stopAutoSlide();
+                      }, function () {
+                          startAutoSlide();
+                      });
+
+                      showSlide(slideIndex);
+                      startAutoSlide();
+                  });
+          </script>
+      </body>
+      </html>
